@@ -13,7 +13,7 @@ export default (): any => ({
     SECURE: process.env.SECURE || false,
     EMAIL_ID: process.env.EMAIL_ID || 'dineshiie@gmail.com',
     EMAIL_PASS: process.env.EMAIL_PASS || 'asalmangatha2011',
-    EMAIL_FROM: process.env.EMAIL_FROM || 'securus@xiiiusa.com',
+    EMAIL_FROM: process.env.EMAIL_FROM || 'dineshiie@gmail.com',
     EMAIL_SUBJECT:
       process.env.EMAIL_SUBJECT ||
       'Digital Enterprise Initiative™ confirmation',
