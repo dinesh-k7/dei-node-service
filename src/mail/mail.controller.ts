@@ -2,21 +2,15 @@ import {
   Controller,
   Post,
   Body,
-  Req,
   Res,
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
-import {
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-  ApiConsumes,
-} from '@nestjs/swagger';
+import { Response } from 'express';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { MailService } from './mail.service';
-import { IQuoteModel } from './model/quote.model';
+
 import { QuoteDto } from './dto/quote-dto';
 
 @Controller('mail-service')

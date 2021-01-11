@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
-import sanitizeHtml from 'sanitize-html';
 
 import { IQuoteModel } from './model/quote.model';
 import { sanitizeInput } from '../shared/utils';

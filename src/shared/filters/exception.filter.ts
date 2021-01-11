@@ -34,7 +34,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         timestamp: new Date().toISOString(),
         errorType:
           exception.message && exception.message.error
-            ? constants.mongoose_error
+            ? constants.mail_error
             : name,
         errorMessage: message,
         additionalDetails,

@@ -1,5 +1,6 @@
 // Strip html element from Quote data
-export const sanitizeInput = (data): any => {
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+export const sanitizeInput = (data: any): any => {
   const keys = data && Object.keys(data).length;
 
   if (keys) {

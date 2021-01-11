@@ -1,5 +1,5 @@
 export const constants = {
-  mongoose_error: 'Error in Mongoose',
+  mail_error: 'Error in Sending Mail',
   no_content: 'No Content',
   created: 'Created',
 };
