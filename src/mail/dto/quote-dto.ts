@@ -47,5 +47,5 @@ export class QuoteDto {
 
   @ApiProperty()
   @IsNumber()
-  readonly monthlyCost: number;
+  readonly monthly_cost: number;
 }

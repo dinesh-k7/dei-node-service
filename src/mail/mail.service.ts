@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 
 import { IQuoteModel } from './model/quote.model';
 import { sanitizeInput } from '../shared/utils';
+import { constants } from '../constants';
 
 @Injectable()
 export class MailService {
@@ -15,15 +16,21 @@ export class MailService {
   /**
    * Function to send mail to users with lead information
    * @param quote:IQuoteModel
+   * @param action:string
    */
-  public sendMail(quote: IQuoteModel): Promise<any> {
+  public sendMail(quote: IQuoteModel, action: string): Promise<any> {
     quote = sanitizeInput({ ...quote });
     const from = this.configService.get<string>(
       'EMAIL_CONFIGURATION.EMAIL_FROM',
     );
-    const subject = this.configService.get<string>(
-      'EMAIL_CONFIGURATION.EMAIL_SUBJECT',
-    );
+    const subject =
+      action === constants.confirmation
+        ? this.configService.get<string>(
+            'EMAIL_CONFIGURATION.CONFIRMATION_EMAIL_SUBJECT',
+          )
+        : this.configService.get<string>(
+            'EMAIL_CONFIGURATION.LEAD_EMAIL_SUBJECT',
+          );
     const { email } = quote;
 
     return this.mailerService.sendMail({
@@ -31,7 +38,7 @@ export class MailService {
       from,
       cc: from,
       subject,
-      template: 'index',
+      template: action === constants.confirmation ? 'index' : 'lead-info',
       context: {
         ...quote,
       },

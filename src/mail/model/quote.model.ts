@@ -7,5 +7,5 @@ export interface IQuoteModel {
   position: string;
   website_url: string;
   company_name: string;
-  monthlyCost: number;
+  monthly_cost: number;
 }

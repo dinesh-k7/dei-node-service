@@ -14,8 +14,9 @@ export default (): any => ({
     EMAIL_ID: process.env.EMAIL_ID || 'dineshiie@gmail.com',
     EMAIL_PASS: process.env.EMAIL_PASS || 'asalmangatha2011',
     EMAIL_FROM: process.env.EMAIL_FROM || 'dineshiie@gmail.com',
-    EMAIL_SUBJECT:
-      process.env.EMAIL_SUBJECT ||
+    CONFIRMATION_EMAIL_SUBJECT:
+      process.env.CONFIRMATION_EMAIL_SUBJECT ||
       'Digital Enterprise Initiative™ confirmation',
+    LEAD_EMAIL_SUBJECT: process.env.LEAD_EMAIL_SUBJECT || 'KLW - Deals',
   },
 });

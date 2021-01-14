@@ -12,6 +12,8 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MailService } from './mail.service';
 
 import { QuoteDto } from './dto/quote-dto';
+import { constants } from '../constants';
+import { IQuoteModel } from './model/quote.model';
 
 @Controller('mail-service')
 @ApiTags('Mail Service')
@@ -20,7 +22,7 @@ export class MailController {
 
   /**
    * Function to send mail based on quote data
-   * @param quotePayload: IQuoteModel
+   * @param quotePayload: QuoteDto
    * @param response: Response
    */
   @Post('sendmail')
@@ -31,9 +33,10 @@ export class MailController {
     @Res() response: Response,
   ): Promise<any> {
     this.mailService
-      .sendMail(quotePayload)
+      .sendMail(quotePayload, constants.confirmation)
       .then(() => {
         Logger.log('Email sent successfully', JSON.stringify(quotePayload));
+        this.sendLeadInfoMail(quotePayload);
         response.status(HttpStatus.NO_CONTENT).send();
       })
       .catch(err => {
@@ -41,6 +44,18 @@ export class MailController {
         response
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .send('Error in sending email');
+      });
+  }
+
+  /**
+   * Function to send email with lead information
+   * @param quotePayload: IQuoteModel
+   */
+  private async sendLeadInfoMail(quotePayload: IQuoteModel): Promise<any> {
+    return await this.mailService
+      .sendMail(quotePayload, constants.leader_info)
+      .catch(error => {
+        Logger.error('Error in sending Lead Info email', JSON.stringify(error));
       });
   }
 }
