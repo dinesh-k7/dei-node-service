@@ -31,10 +31,12 @@ export class MailService {
         : this.configService.get<string>(
             'EMAIL_CONFIGURATION.LEAD_EMAIL_SUBJECT',
           );
+
     const { email } = quote;
+    const to = action === constants.confirmation ? email : from;
 
     return this.mailerService.sendMail({
-      to: email,
+      to,
       from,
       cc: from,
       subject,
