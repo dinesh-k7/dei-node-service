@@ -1,5 +1,4 @@
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
 import * as helmet from 'helmet';
@@ -7,7 +6,6 @@ import * as rateLimit from 'express-rate-limit';
 
 import { AppModule } from './app.module';
 import config from './config/configuration';
-import { options } from './config/swagger.config';
 
 import { AllExceptionsFilter } from './shared/filters/exception.filter';
 
@@ -36,10 +34,6 @@ async function bootstrap() {
 
   // Enable HTTP Exception filter
   app.useGlobalFilters(new AllExceptionsFilter());
-
-  // Intialize swagger module
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
 
   if (config().ENABLE_CORS) {
     app.enableCors();

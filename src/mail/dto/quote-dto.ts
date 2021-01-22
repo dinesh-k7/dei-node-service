@@ -28,24 +28,23 @@ export class QuoteDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly company_size: string;
+  readonly companySize: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly position?: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  readonly position: string;
+  readonly websiteUrl: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  readonly website_url: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  readonly company_name: string;
+  readonly companyName: string;
 
   @ApiProperty()
   @IsNumber()
-  readonly monthly_cost: number;
+  readonly monthlyCost?: number;
 }

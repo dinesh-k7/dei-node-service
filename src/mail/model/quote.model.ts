@@ -3,9 +3,9 @@ export interface IQuoteModel {
   lastname: string;
   email: string;
   phone: string;
-  company_size: string;
-  position: string;
-  website_url: string;
-  company_name: string;
-  monthly_cost: number;
+  companySize: string;
+  position?: string;
+  websiteUrl: string;
+  companyName: string;
+  monthlyCost?: number;
 }

@@ -4,7 +4,6 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { ConfigModule } from '@nestjs/config';
 
 import { MailModule } from './mail/mail.module';
-import config from './config/configuration';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config/configuration';
@@ -17,7 +16,7 @@ const {
   EMAIL_ID,
   EMAIL_PASS,
   EMAIL_FROM,
-} = config().EMAIL_CONFIGURATION;
+} = configuration().EMAIL_CONFIGURATION;
 
 @Module({
   imports: [

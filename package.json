@@ -19,7 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "start:prod": "node dist/main"
+    "start:prod": "node dist/main",
+    "sonar": "node sonar-project.js"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^1.5.1",
@@ -35,6 +36,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
     "sanitize-html": "^2.3.0",
+    "sonarqube-scanner": "^2.8.0",
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {

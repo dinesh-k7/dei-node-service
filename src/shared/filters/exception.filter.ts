@@ -26,24 +26,17 @@ export class AllExceptionsFilter implements ExceptionFilter {
      * @param type
      * @param message
      */
-    const responseMessage = (exception: any) => {
-      const { name, message, response: additionalDetails } = exception;
+    const responseMessage = (excep: any) => {
+      const { name, message, response: additionalDetails } = excep;
       response.status(status).json({
         statusCode: status,
         path: request.url,
         timestamp: new Date().toISOString(),
-        errorType:
-          exception.message && exception.message.error
-            ? constants.mail_error
-            : name,
+        errorType: message && message.error ? constants.mail_error : name,
         errorMessage: message,
         additionalDetails,
       });
     };
-    if (exception.message.error) {
-      responseMessage(exception);
-    } else {
-      responseMessage(exception);
-    }
+    responseMessage(exception);
   }
 }

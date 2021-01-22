@@ -35,7 +35,7 @@ export class MailController {
     this.mailService
       .sendMail(quotePayload, constants.confirmation)
       .then(() => {
-        Logger.log('Email sent successfully', JSON.stringify(quotePayload));
+        Logger.log('Email sent successfully');
         this.sendLeadInfoMail(quotePayload);
         response.status(HttpStatus.NO_CONTENT).send();
       })
@@ -52,7 +52,10 @@ export class MailController {
    * @param quotePayload: IQuoteModel
    */
   private async sendLeadInfoMail(quotePayload: IQuoteModel): Promise<any> {
-    return await this.mailService
+    quotePayload.position = quotePayload.position
+      ? quotePayload.position
+      : 'null';
+    return this.mailService
       .sendMail(quotePayload, constants.leader_info)
       .catch(error => {
         Logger.error('Error in sending Lead Info email', JSON.stringify(error));
