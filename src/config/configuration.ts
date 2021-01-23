@@ -11,9 +11,9 @@ export default (): any => ({
     EMAIL_PORT: process.env.EMAIL_PORT || 587,
     SECURE_PORT: process.env.SECURE_PORT || 465,
     SECURE: process.env.SECURE || true,
-    EMAIL_ID: process.env.EMAIL_ID || 'DONOTREPLY@xiiiusa.com',
+    EMAIL_ID: process.env.EMAIL_ID || 'DoNotReply@xiiiusa.com',
     EMAIL_PASS: process.env.EMAIL_PASS || 'LJHyy3JmN*ceX_x_pLR',
-    EMAIL_FROM: process.env.EMAIL_FROM || 'DONOTREPLY@xiiiusa.com',
+    EMAIL_FROM: process.env.EMAIL_FROM || 'DoNotReply@xiiiusa.com',
     CONFIRMATION_EMAIL_SUBJECT:
       process.env.CONFIRMATION_EMAIL_SUBJECT ||
       'Digital Enterprise Initiative™ confirmation',
