@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
 
-import { IQuoteModel } from './model/quote.model';
+import { IBrandingQuoteModel, IQuoteModel } from './model/quote.model';
 import { sanitizeInput } from '../shared/utils';
 import { constants } from '../constants';
 
@@ -15,10 +15,13 @@ export class MailService {
 
   /**
    * Function to send mail to users with lead information
-   * @param quote:IQuoteModel
+   * @param quote:IQuoteModel | IBrandingQuoteModel
    * @param action:string
    */
-  public sendMail(quote: IQuoteModel, action: string): Promise<any> {
+  public sendMail(
+    quote: IQuoteModel | IBrandingQuoteModel,
+    action: string,
+  ): Promise<any> {
     quote = sanitizeInput({ ...quote });
     const from = this.configService.get<string>(
       'EMAIL_CONFIGURATION.EMAIL_FROM',

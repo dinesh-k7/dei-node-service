@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { IsNotEmpty, IsString, IsEmail, IsNumber } from 'class-validator';
 
-export class QuoteDto {
+export class DataSecurityQuoteDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
