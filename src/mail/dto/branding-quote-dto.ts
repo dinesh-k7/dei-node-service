@@ -59,4 +59,16 @@ export class BrandingQuoteDto {
   @ApiProperty()
   @IsOptional()
   readonly comment: string;
+
+  @ApiProperty()
+  @IsOptional()
+  readonly keywords: string;
+
+  @ApiProperty()
+  @IsOptional()
+  readonly brands: string;
+
+  @ApiProperty()
+  @IsOptional()
+  readonly colorPicker: string;
 }
