@@ -23,25 +23,27 @@
     "sonar": "node sonar-project.js"
   },
   "dependencies": {
+    "@hubspot/api-client": "^3.2.6",
     "@nestjs-modules/mailer": "^1.5.1",
     "@nestjs/common": "^7.6.5",
+    "@nestjs/config": "^0.6.1",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/swagger": "^4.7.9",
     "@types/sanitize-html": "^1.27.0",
     "axios": "^0.21.1",
+    "class-transformer": "^0.3.1",
+    "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
     "express-rate-limit": "^5.2.3",
     "helmet": "^4.3.1",
+    "nestjs-hubspot": "^1.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
     "sanitize-html": "^2.3.0",
     "sonarqube-scanner": "^2.8.0",
-    "swagger-ui-express": "^4.1.6",
-    "@nestjs/config": "^0.6.1",
-    "@nestjs/swagger": "^4.7.9",
-    "class-transformer": "^0.3.1",
-    "class-validator": "^0.12.2"
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",

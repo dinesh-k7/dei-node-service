@@ -8,6 +8,8 @@ import { AppModule } from './app.module';
 import config from './config/configuration';
 
 import { AllExceptionsFilter } from './shared/filters/exception.filter';
+import { SwaggerModule } from '@nestjs/swagger';
+import { options } from './config/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -38,6 +40,10 @@ async function bootstrap() {
   if (config().ENABLE_CORS) {
     app.enableCors();
   }
+
+  // Intialize swagger module
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(port);
 }

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, HttpModule } from '@nestjs/common';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { ConfigModule } from '@nestjs/config';
@@ -6,6 +6,9 @@ import { ConfigModule } from '@nestjs/config';
 import { MailModule } from './mail/mail.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { HubspotCrmController } from './hubspot-crm/hubspot-crm.controller';
+import { HubspotCrmService } from './hubspot-crm/hubspot-crm.service';
+import { HubspotCrmModule } from './hubspot-crm/hubspot-crm.module';
 import configuration from './config/configuration';
 
 const {
@@ -46,8 +49,10 @@ const {
       load: [configuration],
       isGlobal: true,
     }),
+    HubspotCrmModule,
+    HttpModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, HubspotCrmController],
+  providers: [AppService, HubspotCrmService],
 })
 export class AppModule {}

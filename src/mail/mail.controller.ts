@@ -15,11 +15,15 @@ import { DataSecurityQuoteDto } from './dto/data-security-quote-dto';
 import { BrandingQuoteDto } from './dto/branding-quote-dto';
 import { constants } from '../constants';
 import { IBrandingQuoteModel, IQuoteModel } from './model/quote.model';
+import { HubspotCrmService } from '../hubspot-crm/hubspot-crm.service';
 
 @Controller('mail-service')
 @ApiTags('Mail Service')
 export class MailController {
-  constructor(private readonly mailService: MailService) {}
+  constructor(
+    private readonly mailService: MailService,
+    private readonly hubspotCrmService: HubspotCrmService,
+  ) {}
 
   /**
    * Function to send mail based on quote data
@@ -38,6 +42,9 @@ export class MailController {
       .then(() => {
         Logger.log('Email sent successfully');
 
+        if (quotePayload.companySize) {
+          this.createLead(quotePayload);
+        }
         this.sendLeadInfoMail(quotePayload);
         response.status(HttpStatus.NO_CONTENT).send();
       })
@@ -88,5 +95,22 @@ export class MailController {
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .send('Error in sending email');
       });
+  }
+
+  /**
+   * Function to create leads in Hubspot
+   * @param leadsPayoad:IQuoteModel
+   */
+  private async createLead(payload: IQuoteModel): Promise<any> {
+    const { name, lastname, email, phone, websiteUrl, companyName } = payload;
+    const leadPayload = {
+      firstname: name,
+      lastname,
+      email,
+      phone,
+      website: websiteUrl,
+      company: companyName,
+    };
+    this.hubspotCrmService.createLead(leadPayload);
   }
 }
