@@ -2,23 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { IsNotEmpty, IsString, IsEmail, IsOptional } from 'class-validator';
 
-class IIndustry {
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  name?: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  id?: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  group?: string;
-}
-
 export class BrandingQuoteDto {
   @ApiProperty()
   @IsNotEmpty()
@@ -50,7 +33,7 @@ export class BrandingQuoteDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly industry?: IIndustry;
+  readonly industry?: string;
 
   @ApiProperty()
   @IsNotEmpty()

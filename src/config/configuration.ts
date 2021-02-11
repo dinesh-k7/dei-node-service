@@ -18,6 +18,10 @@ export default (): any => ({
       process.env.CONFIRMATION_EMAIL_SUBJECT ||
       'Digital Enterprise Initiative™ confirmation',
     LEAD_EMAIL_SUBJECT: process.env.LEAD_EMAIL_SUBJECT || 'KLW - Deals',
+    BRANDING_DEALS_SUBJECT:
+      process.env.BRANDING_DEALS_SUBJECT || 'Branding Deals',
+    BRANDING_EMAIL_SUBJECT:
+      process.env.BRANDING_EMAIL_SUBJECT || 'DEI™-Graphic Design-Branding',
   },
   HUBSPOT_API_KEY:
     process.env.HUBSPOT_API_KEY || '56e2b3ac-6375-47a8-9362-dce12fdf7faa',

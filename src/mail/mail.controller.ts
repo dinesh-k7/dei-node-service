@@ -38,7 +38,7 @@ export class MailController {
     @Res() response: Response,
   ): Promise<any> {
     this.mailService
-      .sendMail(quotePayload, constants.confirmation)
+      .sendMail(quotePayload, constants.DATA_SECURITY)
       .then(() => {
         Logger.log('Email sent successfully');
 
@@ -62,7 +62,7 @@ export class MailController {
     quotePayload: IQuoteModel | IBrandingQuoteModel,
   ): Promise<any> {
     return this.mailService
-      .sendMail(quotePayload, constants.leader_info)
+      .sendMail(quotePayload, constants.LEAD_INFO)
       .catch(error => {
         Logger.error('Error in sending Lead Info email', JSON.stringify(error));
       });
@@ -81,7 +81,7 @@ export class MailController {
     @Res() res: Response,
   ): Promise<any> {
     this.mailService
-      .sendMail(brandingPayload, constants.confirmation)
+      .sendMail(brandingPayload, constants.BRANDING)
       .then(() => {
         Logger.log('Branding quote Email sent successfully');
         this.createLead(brandingPayload);

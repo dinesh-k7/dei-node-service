@@ -16,38 +16,72 @@ export class MailService {
   /**
    * Function to send mail to users with lead information
    * @param quote:IQuoteModel | IBrandingQuoteModel
-   * @param action:string
+   * @param page:string
    */
   public sendMail(
     quote: IQuoteModel | IBrandingQuoteModel,
-    action: string,
+    page?: string,
   ): Promise<any> {
     quote = sanitizeInput({ ...quote });
     const from = this.configService.get<string>(
       'EMAIL_CONFIGURATION.EMAIL_FROM',
     );
-    const subject =
-      action === constants.confirmation
-        ? this.configService.get<string>(
-            'EMAIL_CONFIGURATION.CONFIRMATION_EMAIL_SUBJECT',
-          )
-        : this.configService.get<string>(
-            'EMAIL_CONFIGURATION.LEAD_EMAIL_SUBJECT',
-          );
+    const { subject, template } = this.getSubjectTempl(page, quote);
 
     const { email } = quote;
-    const to = action === constants.confirmation ? email : from;
-    const template = quote['industry'] ? 'branding-quote' : 'index';
+    const to = page === constants.DATA_SECURITY ? email : from;
 
     return this.mailerService.sendMail({
       to,
       from,
       cc: from,
       subject,
-      template: action === constants.confirmation ? template : 'lead-info',
+      template,
       context: {
         ...quote,
       },
     });
+  }
+
+  /**
+   * Function to return the subject for the email
+   * @param page: string
+   * @param quote: any
+   */
+  private getSubjectTempl(
+    page: string,
+    quote?: any,
+  ): { subject: string; template: string } {
+    let subject;
+    let template;
+    switch (page) {
+      case constants.BRANDING:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.BRANDING_EMAIL_SUBJECT',
+        );
+        template = 'branding-quote';
+        break;
+
+      case constants.DATA_SECURITY:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.CONFIRMATION_EMAIL_SUBJECT',
+        );
+        template = 'index';
+        break;
+
+      case constants.LEAD_INFO:
+        if (quote['slogan']) {
+          subject = this.configService.get<string>(
+            'EMAIL_CONFIGURATION.BRANDING_DEALS_SUBJECT',
+          );
+        } else {
+          subject = this.configService.get<string>(
+            'EMAIL_CONFIGURATION.LEAD_EMAIL_SUBJECT',
+          );
+        }
+        template = 'lead-info';
+        break;
+    }
+    return { subject, template };
   }
 }
