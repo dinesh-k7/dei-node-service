@@ -37,13 +37,14 @@ export class MailService {
 
     const { email } = quote;
     const to = action === constants.confirmation ? email : from;
+    const template = quote['industry'] ? 'branding-quote' : 'index';
 
     return this.mailerService.sendMail({
       to,
       from,
       cc: from,
       subject,
-      template: action === constants.confirmation ? 'index' : 'lead-info',
+      template: action === constants.confirmation ? template : 'lead-info',
       context: {
         ...quote,
       },

@@ -42,14 +42,12 @@ export class MailController {
       .then(() => {
         Logger.log('Email sent successfully');
 
-        if (quotePayload.companySize) {
-          this.createLead(quotePayload);
-        }
+        this.createLead(quotePayload);
         this.sendLeadInfoMail(quotePayload);
         response.status(HttpStatus.NO_CONTENT).send();
       })
       .catch(err => {
-        Logger.log('Error in sending email', JSON.stringify(err));
+        Logger.log('Error in sending data security email', JSON.stringify(err));
         response
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .send('Error in sending email');
@@ -72,28 +70,32 @@ export class MailController {
 
   /**
    * Function to send mail based on branding quote data
-   * @param quotePayload: BrandingQuoteDto
-   * @param response: Response
+   * @param brandingPayload: BrandingQuoteDto
+   * @param res: Response
    */
   @Post('branding-quote/sendmail')
   @ApiOperation({ summary: 'Send Branding Quote email to users' })
   @ApiResponse({ status: HttpStatus.NO_CONTENT })
   public async sendBrandingQuote(
-    @Body() quotePayload: BrandingQuoteDto,
-    @Res() response: Response,
+    @Body() brandingPayload: BrandingQuoteDto,
+    @Res() res: Response,
   ): Promise<any> {
     this.mailService
-      .sendMail(quotePayload, constants.confirmation)
+      .sendMail(brandingPayload, constants.confirmation)
       .then(() => {
-        Logger.log('Email sent successfully');
-        this.sendLeadInfoMail(quotePayload);
-        response.status(HttpStatus.NO_CONTENT).send();
+        Logger.log('Branding quote Email sent successfully');
+        this.createLead(brandingPayload);
+        this.sendLeadInfoMail(brandingPayload);
+        res.status(HttpStatus.NO_CONTENT).send();
       })
-      .catch(err => {
-        Logger.log('Error in sending email', JSON.stringify(err));
-        response
+      .catch(brandingErr => {
+        Logger.log(
+          'Error in sending Branding email',
+          JSON.stringify(brandingErr),
+        );
+        res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .send('Error in sending email');
+          .send('Error in sending Branding email');
       });
   }
 
@@ -101,16 +103,23 @@ export class MailController {
    * Function to create leads in Hubspot
    * @param leadsPayoad:IQuoteModel
    */
-  private async createLead(payload: IQuoteModel): Promise<any> {
+  private async createLead(payload: any): Promise<any> {
     const { name, lastname, email, phone, websiteUrl, companyName } = payload;
     const leadPayload = {
       firstname: name,
       lastname,
       email,
       phone,
-      website: websiteUrl,
+      website: websiteUrl ? websiteUrl : '',
       company: companyName,
     };
-    this.hubspotCrmService.createLead(leadPayload);
+    this.hubspotCrmService.createLead(leadPayload).then(
+      data => {
+        Logger.log('Successfully created leads', JSON.stringify(data));
+      },
+      error => {
+        Logger.log('Error in creating leads', JSON.stringify(error));
+      },
+    );
   }
 }

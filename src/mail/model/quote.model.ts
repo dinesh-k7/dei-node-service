@@ -21,7 +21,7 @@ export interface IBrandingQuoteModel {
   aboutCompany: string;
   targetAudience: string;
   comment?: string;
-  industry: string;
+  industry?: any;
   brands?: string;
   keywords?: string;
   colorPicker?: string;

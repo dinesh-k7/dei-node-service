@@ -37,7 +37,6 @@ export class HubspotCrmController {
         response.status(HttpStatus.NO_CONTENT).send();
       })
       .catch(err => {
-        console.log(err);
         Logger.log('Error in creating leads', JSON.stringify(err));
         response
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
