@@ -26,3 +26,31 @@ export interface IBrandingQuoteModel {
   keywords?: string;
   colorPicker?: string;
 }
+
+export interface IEnterpriseServiceModel {
+  name: string;
+  email: string;
+  phone: string;
+  companySize?: string;
+  position?: string;
+  websiteUrl: string;
+  companyName: string;
+  addressline1: string;
+  suite: string;
+  industry: string;
+}
+
+export interface ISDWANServiceModel {
+  name: string;
+  email: string;
+  phone: string;
+  companySize?: string;
+  position?: string;
+  websiteUrl: string;
+  companyName: string;
+  primary: string;
+  secondary: string;
+  sitetype: string;
+  noofsites?: string;
+  industry: string;
+}

@@ -2,7 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
 
-import { IBrandingQuoteModel, IQuoteModel } from './model/quote.model';
+import {
+  IBrandingQuoteModel,
+  IEnterpriseServiceModel,
+  IQuoteModel,
+  ISDWANServiceModel,
+} from './model/quote.model';
 import { sanitizeInput } from '../shared/utils';
 import { constants } from '../constants';
 
@@ -19,7 +24,11 @@ export class MailService {
    * @param page:string
    */
   public sendMail(
-    quote: IQuoteModel | IBrandingQuoteModel,
+    quote:
+      | IQuoteModel
+      | IBrandingQuoteModel
+      | IEnterpriseServiceModel
+      | ISDWANServiceModel,
     page?: string,
   ): Promise<any> {
     quote = sanitizeInput({ ...quote });
@@ -29,7 +38,7 @@ export class MailService {
     const { subject, template } = this.getSubjectTempl(page, quote);
 
     const { email } = quote;
-    const to = page === constants.DATA_SECURITY ? email : from;
+    const to = page === constants.LEAD_INFO ? from : email;
 
     return this.mailerService.sendMail({
       to,
@@ -69,19 +78,90 @@ export class MailService {
         template = 'index';
         break;
 
+      case constants.ES_CLOUD_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.CLOUD_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+        );
+        template = 'cloud-service-quote';
+        break;
+
+      case constants.ES_CABLE_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.CABLE_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+        );
+        template = 'cable-service-quote';
+        break;
+
+      case constants.ES_CARRIER_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.CARRIER_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+        );
+        template = 'carrier-service-quote';
+        break;
+
+      case constants.ES_SDWAN_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.SDWAN_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+        );
+        template = 'sdwan-service-quote';
+        break;
+
+      case constants.CONSULTATION_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.CONSULTATION_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+        );
+        template = 'consultation-service-quote';
+        break;
+
       case constants.LEAD_INFO:
+        const { fromPage } = quote;
         if (quote['slogan']) {
           subject = this.configService.get<string>(
             'EMAIL_CONFIGURATION.BRANDING_DEALS_SUBJECT',
           );
         } else {
-          subject = this.configService.get<string>(
-            'EMAIL_CONFIGURATION.LEAD_EMAIL_SUBJECT',
-          );
+          subject = this.getLeadInfoSubject(fromPage);
         }
         template = 'lead-info';
         break;
     }
     return { subject, template };
+  }
+
+  /**
+   * Function to return the subject for the leadinfo email
+   * @param page: string
+   */
+  private getLeadInfoSubject(page: string): string {
+    let subject;
+
+    switch (page) {
+      case constants.ES_CABLE_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.CABLE_LEAD_EMAIL_SUBJECT',
+        );
+        break;
+      case constants.ES_CLOUD_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.CLOUD_LEAD_EMAIL_SUBJECT',
+        );
+        break;
+      case constants.ES_CARRIER_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.CARRIER_LEAD_EMAIL_SUBJECT',
+        );
+        break;
+      case constants.ES_SDWAN_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.SDWAN_LEAD_EMAIL_SUBJECT',
+        );
+        break;
+      case constants.CONSULTATION_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.CONSULTATION_LEAD_EMAIL_SUBJECT',
+        );
+        break;
+    }
+    return subject;
   }
 }

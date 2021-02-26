@@ -18,10 +18,35 @@ export default (): any => ({
       process.env.CONFIRMATION_EMAIL_SUBJECT ||
       'Digital Enterprise Initiative™ confirmation',
     LEAD_EMAIL_SUBJECT: process.env.LEAD_EMAIL_SUBJECT || 'KLW - Deals',
+    CABLE_LEAD_EMAIL_SUBJECT:
+      process.env.CABLE_LEAD_EMAIL_SUBJECT || 'Cable Deals',
+    CARRIER_LEAD_EMAIL_SUBJECT:
+      process.env.CARRIER_LEAD_EMAIL_SUBJECT || 'Carrier - Deals',
+    CLOUD_LEAD_EMAIL_SUBJECT:
+      process.env.CLOUD_LEAD_EMAIL_SUBJECT || 'Cloud - Deals',
+    SDWAN_LEAD_EMAIL_SUBJECT:
+      process.env.SDWAN_LEAD_EMAIL_SUBJECT || 'SDWAN - Deals',
+    CONSULTATION_LEAD_EMAIL_SUBJECT:
+      process.env.CONSULTATION_LEAD_EMAIL_SUBJECT || 'Consultation - Deals',
     BRANDING_DEALS_SUBJECT:
       process.env.BRANDING_DEALS_SUBJECT || 'Branding Deals',
     BRANDING_EMAIL_SUBJECT:
       process.env.BRANDING_EMAIL_SUBJECT || 'DEI™-Graphic Design-Branding',
+    CLOUD_SERVICE_CONFIRMATION_EMAIL_SUBJECT:
+      process.env.CLOUD_SERVICE_CONFIRMATION_EMAIL_SUBJECT ||
+      'DEI™-Cloud Service',
+    CABLE_SERVICE_CONFIRMATION_EMAIL_SUBJECT:
+      process.env.CABLE_SERVICE_CONFIRMATION_EMAIL_SUBJECT ||
+      'DEI™-Cable Service',
+    CARRIER_SERVICE_CONFIRMATION_EMAIL_SUBJECT:
+      process.env.CARRIER_SERVICE_CONFIRMATION_EMAIL_SUBJECT ||
+      'DEI™-Carrier Service',
+    SDWAN_SERVICE_CONFIRMATION_EMAIL_SUBJECT:
+      process.env.SDWAN_SERVICE_CONFIRMATION_EMAIL_SUBJECT ||
+      'DEI™-SDWAN Service',
+    CONSULTATION_SERVICE_CONFIRMATION_EMAIL_SUBJECT:
+      process.env.CONSULTATION_SERVICE_CONFIRMATION_EMAIL_SUBJECT ||
+      'DEI™-Consultation Service',
   },
   HUBSPOT_API_KEY:
     process.env.HUBSPOT_API_KEY || '56e2b3ac-6375-47a8-9362-dce12fdf7faa',
