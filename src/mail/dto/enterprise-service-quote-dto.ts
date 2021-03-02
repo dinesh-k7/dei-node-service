@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsNotEmpty, IsString, IsEmail } from 'class-validator';
+import { IsNotEmpty, IsString, IsEmail, IsOptional } from 'class-validator';
 
 export class EnterpriseServiceQuoteDto {
   @ApiProperty()
@@ -26,7 +26,7 @@ export class EnterpriseServiceQuoteDto {
   readonly companySize?: string;
 
   @ApiProperty()
-  @IsString()
+  @IsOptional()
   readonly position?: string;
 
   @ApiProperty()
@@ -57,4 +57,12 @@ export class EnterpriseServiceQuoteDto {
   @IsNotEmpty()
   @IsString()
   readonly industry: string;
+
+  @ApiProperty()
+  @IsOptional()
+  readonly numberofseats?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  readonly numberoftvs?: string;
 }

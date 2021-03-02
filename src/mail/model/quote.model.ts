@@ -35,9 +35,12 @@ export interface IEnterpriseServiceModel {
   position?: string;
   websiteUrl: string;
   companyName: string;
-  addressline1: string;
-  suite: string;
+  addressline1?: string;
+  suite?: string;
   industry: string;
+  zipcode?: string;
+  numberofseats?: string;
+  numberoftvs?: string;
 }
 
 export interface ISDWANServiceModel {

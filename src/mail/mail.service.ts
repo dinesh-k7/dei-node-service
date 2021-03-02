@@ -106,11 +106,11 @@ export class MailService {
         template = 'sdwan-service-quote';
         break;
 
-      case constants.CONSULTATION_SERVICE:
+      case constants.UCAAS_SERVICE:
         subject = this.configService.get<string>(
-          'EMAIL_CONFIGURATION.CONSULTATION_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+          'EMAIL_CONFIGURATION.UCASS_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
         );
-        template = 'consultation-service-quote';
+        template = 'ucaas-service-quote';
         break;
 
       case constants.LEAD_INFO:
@@ -154,6 +154,11 @@ export class MailService {
       case constants.ES_SDWAN_SERVICE:
         subject = this.configService.get<string>(
           'EMAIL_CONFIGURATION.SDWAN_LEAD_EMAIL_SUBJECT',
+        );
+        break;
+      case constants.UCAAS_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.UCAAS_LEAD_EMAIL_SUBJECT',
         );
         break;
       case constants.CONSULTATION_SERVICE:

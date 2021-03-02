@@ -22,10 +22,6 @@ export class ConsultationServiceQuoteDto {
   readonly phone: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  readonly companySize?: string;
-
-  @ApiProperty()
   @IsString()
   readonly position?: string;
 
@@ -44,14 +40,8 @@ export class ConsultationServiceQuoteDto {
   readonly companyName: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsString()
-  readonly addressline1: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  readonly suite: string;
+  readonly zipcode?: string;
 
   @ApiProperty()
   @IsNotEmpty()

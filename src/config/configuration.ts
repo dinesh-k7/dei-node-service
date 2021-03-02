@@ -28,8 +28,11 @@ export default (): any => ({
       process.env.SDWAN_LEAD_EMAIL_SUBJECT || 'SDWAN - Deals',
     CONSULTATION_LEAD_EMAIL_SUBJECT:
       process.env.CONSULTATION_LEAD_EMAIL_SUBJECT || 'Consultation - Deals',
+    UCAAS_LEAD_EMAIL_SUBJECT:
+      process.env.UCAAS_LEAD_EMAIL_SUBJECT || 'UCaaS - Deals',
     BRANDING_DEALS_SUBJECT:
       process.env.BRANDING_DEALS_SUBJECT || 'Branding Deals',
+
     BRANDING_EMAIL_SUBJECT:
       process.env.BRANDING_EMAIL_SUBJECT || 'DEI™-Graphic Design-Branding',
     CLOUD_SERVICE_CONFIRMATION_EMAIL_SUBJECT:
@@ -47,6 +50,9 @@ export default (): any => ({
     CONSULTATION_SERVICE_CONFIRMATION_EMAIL_SUBJECT:
       process.env.CONSULTATION_SERVICE_CONFIRMATION_EMAIL_SUBJECT ||
       'DEI™-Consultation Service',
+    UCASS_SERVICE_CONFIRMATION_EMAIL_SUBJECT:
+      process.env.UCASS_SERVICE_CONFIRMATION_EMAIL_SUBJECT ||
+      'DEI™-UCaaS Service',
   },
   HUBSPOT_API_KEY:
     process.env.HUBSPOT_API_KEY || '56e2b3ac-6375-47a8-9362-dce12fdf7faa',
