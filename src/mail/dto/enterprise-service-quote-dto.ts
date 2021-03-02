@@ -65,4 +65,8 @@ export class EnterpriseServiceQuoteDto {
   @ApiProperty()
   @IsOptional()
   readonly numberoftvs?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  readonly services?: string[];
 }

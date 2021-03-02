@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsNotEmpty, IsString, IsEmail } from 'class-validator';
+import { IsNotEmpty, IsString, IsEmail, IsOptional } from 'class-validator';
 
 export class SDWANServiceQuoteDto {
   @ApiProperty()
@@ -66,4 +66,8 @@ export class SDWANServiceQuoteDto {
   @ApiProperty()
   @IsNotEmpty()
   readonly noofsites?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  readonly services?: string[];
 }

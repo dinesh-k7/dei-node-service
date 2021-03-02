@@ -41,6 +41,7 @@ export interface IEnterpriseServiceModel {
   zipcode?: string;
   numberofseats?: string;
   numberoftvs?: string;
+  services?: string[];
 }
 
 export interface ISDWANServiceModel {
@@ -56,4 +57,5 @@ export interface ISDWANServiceModel {
   sitetype: string;
   noofsites?: string;
   industry: string;
+  services?: string[];
 }
