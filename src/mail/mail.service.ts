@@ -39,6 +39,9 @@ export class MailService {
 
     const { email } = quote;
     const to = page === constants.LEAD_INFO ? from : email;
+    console.log(to, from);
+    console.log(subject, template);
+    console.log({ ...quote });
 
     return this.mailerService.sendMail({
       to,
@@ -83,6 +86,13 @@ export class MailService {
           'EMAIL_CONFIGURATION.CLOUD_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
         );
         template = 'cloud-service-quote';
+        break;
+
+      case constants.CONSULTATION_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.CONSULTATION_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+        );
+        template = 'consultation-service-quote';
         break;
 
       case constants.ES_CABLE_SERVICE:
