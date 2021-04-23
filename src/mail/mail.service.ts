@@ -39,9 +39,6 @@ export class MailService {
 
     const { email } = quote;
     const to = page === constants.LEAD_INFO ? from : email;
-    console.log(to, from);
-    console.log(subject, template);
-    console.log({ ...quote });
 
     return this.mailerService.sendMail({
       to,
@@ -95,32 +92,39 @@ export class MailService {
         template = 'consultation-service-quote';
         break;
 
-      case constants.ES_CABLE_SERVICE:
+      case constants.ES_DATA_SERVICE:
         subject = this.configService.get<string>(
-          'EMAIL_CONFIGURATION.CABLE_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+          'EMAIL_CONFIGURATION.DATA_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
         );
-        template = 'cable-service-quote';
+        template = 'data-service-quote';
         break;
 
-      case constants.ES_CARRIER_SERVICE:
+      case constants.ES_VOICE_SERVICE:
         subject = this.configService.get<string>(
-          'EMAIL_CONFIGURATION.CARRIER_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+          'EMAIL_CONFIGURATION.VOICE_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
         );
-        template = 'carrier-service-quote';
+        template = 'voice-service-quote';
         break;
 
-      case constants.ES_SDWAN_SERVICE:
+      case constants.ES_SECURITY_SERVICE:
         subject = this.configService.get<string>(
-          'EMAIL_CONFIGURATION.SDWAN_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+          'EMAIL_CONFIGURATION.SECURITY_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
         );
-        template = 'sdwan-service-quote';
+        template = 'security-service-quote';
         break;
 
-      case constants.UCAAS_SERVICE:
+      case constants.ES_IOT_SERVICE:
         subject = this.configService.get<string>(
-          'EMAIL_CONFIGURATION.UCASS_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+          'EMAIL_CONFIGURATION.IOT_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
         );
-        template = 'ucaas-service-quote';
+        template = 'iot-service-quote';
+        break;
+
+      case constants.ES_PROFESSIONAL_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.PROFESSIONAL_SERVICE_CONFIRMATION_EMAIL_SUBJECT',
+        );
+        template = 'professional-service-quote';
         break;
 
       case constants.LEAD_INFO:
@@ -146,9 +150,9 @@ export class MailService {
     let subject;
 
     switch (page) {
-      case constants.ES_CABLE_SERVICE:
+      case constants.ES_DATA_SERVICE:
         subject = this.configService.get<string>(
-          'EMAIL_CONFIGURATION.CABLE_LEAD_EMAIL_SUBJECT',
+          'EMAIL_CONFIGURATION.DATA_LEAD_EMAIL_SUBJECT',
         );
         break;
       case constants.ES_CLOUD_SERVICE:
@@ -156,24 +160,35 @@ export class MailService {
           'EMAIL_CONFIGURATION.CLOUD_LEAD_EMAIL_SUBJECT',
         );
         break;
-      case constants.ES_CARRIER_SERVICE:
+      case constants.ES_SECURITY_SERVICE:
         subject = this.configService.get<string>(
-          'EMAIL_CONFIGURATION.CARRIER_LEAD_EMAIL_SUBJECT',
+          'EMAIL_CONFIGURATION.SECURITY_LEAD_EMAIL_SUBJECT',
         );
         break;
-      case constants.ES_SDWAN_SERVICE:
+      case constants.ES_IOT_SERVICE:
         subject = this.configService.get<string>(
-          'EMAIL_CONFIGURATION.SDWAN_LEAD_EMAIL_SUBJECT',
+          'EMAIL_CONFIGURATION.IOT_LEAD_EMAIL_SUBJECT',
         );
         break;
-      case constants.UCAAS_SERVICE:
+      case constants.ES_VOICE_SERVICE:
         subject = this.configService.get<string>(
-          'EMAIL_CONFIGURATION.UCAAS_LEAD_EMAIL_SUBJECT',
+          'EMAIL_CONFIGURATION.VOICE_LEAD_EMAIL_SUBJECT',
+        );
+        break;
+      case constants.ES_PROFESSIONAL_SERVICE:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.PROFESSIONAL_LEAD_EMAIL_SUBJECT',
         );
         break;
       case constants.CONSULTATION_SERVICE:
         subject = this.configService.get<string>(
           'EMAIL_CONFIGURATION.CONSULTATION_LEAD_EMAIL_SUBJECT',
+        );
+        break;
+
+      default:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.LEAD_EMAIL_SUBJECT',
         );
         break;
     }

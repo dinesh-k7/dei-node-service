@@ -44,14 +44,10 @@ export class EnterpriseServiceQuoteDto {
   readonly companyName: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  readonly addressline1: string;
+  readonly addressline?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  readonly suite: string;
+  readonly suite?: string;
 
   @ApiProperty()
   @IsNotEmpty()

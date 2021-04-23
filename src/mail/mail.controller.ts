@@ -75,6 +75,9 @@ export class MailController {
   ): Promise<any> {
     return this.mailService
       .sendMail(quotePayload, constants.LEAD_INFO)
+      .then(() => {
+        Logger.log('Lead Info mail sent successfully');
+      })
       .catch(error => {
         Logger.error('Error in sending Lead Info email', JSON.stringify(error));
       });
