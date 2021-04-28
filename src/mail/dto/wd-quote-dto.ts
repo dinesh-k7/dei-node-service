@@ -2,14 +2,16 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { IsNotEmpty, IsString, IsEmail, IsOptional } from 'class-validator';
 
-export class EnterpriseServiceQuoteDto {
+export class WdQuoteDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
   readonly name: string;
 
   @ApiProperty()
-  readonly status: boolean;
+  @IsNotEmpty()
+  @IsString()
+  readonly lastname: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -23,20 +25,12 @@ export class EnterpriseServiceQuoteDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly companySize?: string;
-
-  @ApiProperty()
-  @IsOptional()
-  readonly position?: string;
-
-  @ApiProperty()
   @IsString()
-  readonly fromPage?: string;
+  readonly position: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
-  readonly websiteUrl: string;
+  readonly industry?: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -44,27 +38,36 @@ export class EnterpriseServiceQuoteDto {
   readonly companyName: string;
 
   @ApiProperty()
-  @IsOptional()
-  readonly addressline?: string;
-
-  @ApiProperty()
-  @IsOptional()
-  readonly suite?: string;
+  @IsNotEmpty()
+  @IsString()
+  readonly targetAudience: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  readonly industry: string;
+  readonly aboutCompany: string;
 
   @ApiProperty()
   @IsOptional()
-  readonly numberofseats?: string;
+  readonly comment?: string;
 
   @ApiProperty()
   @IsOptional()
-  readonly numberoftvs?: string;
+  readonly keywords?: string[];
 
   @ApiProperty()
   @IsOptional()
-  readonly services?: string[];
+  readonly colorPicker?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  readonly isContent?: boolean;
+
+  @ApiProperty()
+  @IsOptional()
+  isSelling?: boolean;
+
+  @ApiProperty()
+  @IsOptional()
+  isSEO?: boolean;
 }

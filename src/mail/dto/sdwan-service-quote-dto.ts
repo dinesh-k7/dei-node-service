@@ -49,15 +49,19 @@ export class SDWANServiceQuoteDto {
   readonly industry: string;
 
   @ApiProperty()
+  @IsOptional()
   readonly primary?: string;
 
   @ApiProperty()
+  @IsOptional()
   readonly secondary?: string;
 
   @ApiProperty()
+  @IsOptional()
   readonly sitetype?: string;
 
   @ApiProperty()
+  @IsOptional()
   readonly noofsites?: string;
 
   @ApiProperty()

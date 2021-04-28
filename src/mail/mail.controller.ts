@@ -18,12 +18,16 @@ import {
   IBrandingQuoteModel,
   IEnterpriseServiceModel,
   IQuoteModel,
+  IReconnectQuoteModel,
   ISDWANServiceModel,
+  IWdQuoteModel,
 } from './model/quote.model';
 import { HubspotCrmService } from '../hubspot-crm/hubspot-crm.service';
 import { EnterpriseServiceQuoteDto } from './dto/enterprise-service-quote-dto';
 import { SDWANServiceQuoteDto } from './dto/sdwan-service-quote-dto';
 import { ConsultationServiceQuoteDto } from './dto/consultation-service-quote-dto';
+import { WdQuoteDto } from './dto/wd-quote-dto';
+import { ReconnectQuoteDto } from './dto/reconnect-quote-dto';
 
 @Controller('mail-service')
 @ApiTags('Mail Service')
@@ -64,14 +68,17 @@ export class MailController {
 
   /**
    * Function to send email with lead information
-   * @param quotePayload: IQuoteModel | IBrandingQuoteModel
+   * @param quotePayload:IQuoteModel | IBrandingQuoteModel | IEnterpriseServiceModel |
+   * ISDWANServiceModel | IWdQuoteModel | IReconnectQuoteModel
    */
   private async sendLeadInfoMail(
     quotePayload:
       | IQuoteModel
       | IBrandingQuoteModel
       | IEnterpriseServiceModel
-      | ISDWANServiceModel,
+      | ISDWANServiceModel
+      | IWdQuoteModel
+      | IReconnectQuoteModel,
   ): Promise<any> {
     return this.mailService
       .sendMail(quotePayload, constants.LEAD_INFO)
@@ -111,6 +118,37 @@ export class MailController {
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .send('Error in sending Branding email');
+      });
+  }
+
+  /**
+   * Function to send mail based on website development quote data
+   * @param wdPayload: WDQuoteDto
+   * @param res: Response
+   */
+  @Post('wd-quote/sendmail')
+  @ApiOperation({ summary: 'Send Website development Quote email to users' })
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
+  public async sendWdQuote(
+    @Body() wdPayload: WdQuoteDto,
+    @Res() res: Response,
+  ): Promise<any> {
+    this.mailService
+      .sendMail(wdPayload, constants.WD)
+      .then(() => {
+        Logger.log('Website development quote Email sent successfully');
+        // this.createLead(wdPayload);
+        this.sendLeadInfoMail(wdPayload);
+        res.status(HttpStatus.NO_CONTENT).send();
+      })
+      .catch(wdErr => {
+        Logger.log(
+          'Error in sending Website development quote email',
+          JSON.stringify(wdErr),
+        );
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .send('Error in sending Website development quote email');
       });
   }
 
@@ -231,6 +269,38 @@ export class MailController {
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .send('Error in sending Consultation service email');
+      });
+  }
+
+  /**
+   * Function to send mail based on reconnect form data
+   * @param reconnectFormPayload: ReconnectQuoteDto
+   * @param response: Response
+   */
+  @Post('reconnect/sendmail')
+  @ApiOperation({ summary: 'Send Reconnect form detail to users' })
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
+  public async sendReconnectFormMail(
+    @Body() quotePayload: ReconnectQuoteDto,
+    @Res() response: Response,
+  ): Promise<any> {
+    this.mailService
+      .sendMail(quotePayload, constants.RECONNECT)
+      .then(() => {
+        Logger.log('Reconnect form data Email sent successfully');
+
+        // this.createLead(quotePayload);
+        this.sendLeadInfoMail(quotePayload);
+        response.status(HttpStatus.NO_CONTENT).send();
+      })
+      .catch(err => {
+        Logger.log(
+          'Error in sending Reconnect form data email',
+          JSON.stringify(err),
+        );
+        response
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .send('Error in Reconnect form data email');
       });
   }
 }

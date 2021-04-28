@@ -59,3 +59,29 @@ export interface ISDWANServiceModel {
   industry: string;
   services?: string[];
 }
+
+export interface IWdQuoteModel {
+  name: string;
+  lastname: string;
+  isContent?: boolean;
+  email: string;
+  phone: string;
+  position: string;
+  industry?: string;
+  companyName: string;
+  targetAudience: string;
+  aboutCompany: string;
+  comment?: string;
+  keywords?: string[];
+  colorPicker?: string;
+  isSelling?: boolean;
+  isSEO?: boolean;
+}
+
+export interface IReconnectQuoteModel {
+  name: string;
+  email: string;
+  phone: string;
+  beliefs?: string[];
+  additional_beliefs?: string[];
+}

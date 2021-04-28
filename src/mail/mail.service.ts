@@ -6,7 +6,9 @@ import {
   IBrandingQuoteModel,
   IEnterpriseServiceModel,
   IQuoteModel,
+  IReconnectQuoteModel,
   ISDWANServiceModel,
+  IWdQuoteModel,
 } from './model/quote.model';
 import { sanitizeInput } from '../shared/utils';
 import { constants } from '../constants';
@@ -20,7 +22,7 @@ export class MailService {
 
   /**
    * Function to send mail to users with lead information
-   * @param quote:IQuoteModel | IBrandingQuoteModel
+   * @param quote:IQuoteModel | IBrandingQuoteModel | IEnterpriseServiceModel | ISDWANServiceModel | IWdQuoteModel | IReconnectQuoteModel
    * @param page:string
    */
   public sendMail(
@@ -28,7 +30,9 @@ export class MailService {
       | IQuoteModel
       | IBrandingQuoteModel
       | IEnterpriseServiceModel
-      | ISDWANServiceModel,
+      | ISDWANServiceModel
+      | IWdQuoteModel
+      | IReconnectQuoteModel,
     page?: string,
   ): Promise<any> {
     quote = sanitizeInput({ ...quote });
@@ -69,6 +73,20 @@ export class MailService {
           'EMAIL_CONFIGURATION.BRANDING_EMAIL_SUBJECT',
         );
         template = 'branding-quote';
+        break;
+
+      case constants.RECONNECT:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.RECONNECT_EMAIL_SUBJECT',
+        );
+        template = 'reconnect-form';
+        break;
+
+      case constants.WD:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.WD_EMAIL_SUBJECT',
+        );
+        template = 'wd-quote';
         break;
 
       case constants.DATA_SECURITY:
@@ -148,11 +166,15 @@ export class MailService {
    */
   private getLeadInfoSubject(page: string): string {
     let subject;
-
     switch (page) {
       case constants.ES_DATA_SERVICE:
         subject = this.configService.get<string>(
           'EMAIL_CONFIGURATION.DATA_LEAD_EMAIL_SUBJECT',
+        );
+        break;
+      case constants.RECONNECT:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.RECONNECT_LEAD_EMAIL_SUBJECT',
         );
         break;
       case constants.ES_CLOUD_SERVICE:
@@ -183,6 +205,12 @@ export class MailService {
       case constants.CONSULTATION_SERVICE:
         subject = this.configService.get<string>(
           'EMAIL_CONFIGURATION.CONSULTATION_LEAD_EMAIL_SUBJECT',
+        );
+        break;
+
+      case constants.WD:
+        subject = this.configService.get<string>(
+          'EMAIL_CONFIGURATION.WD_LEAD_EMAIL_SUBJECT',
         );
         break;
 

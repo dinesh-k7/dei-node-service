@@ -18,6 +18,12 @@ export default (): any => ({
       process.env.CONFIRMATION_EMAIL_SUBJECT ||
       'Digital Enterprise Initiative™ confirmation',
     LEAD_EMAIL_SUBJECT: process.env.LEAD_EMAIL_SUBJECT || 'KLW - Deals',
+    RECONNECT_LEAD_EMAIL_SUBJECT:
+      process.env.RECONNECT_LEAD_EMAIL_SUBJECT || 'Reconnect - Form Data',
+    RECONNECT_EMAIL_SUBJECT:
+      process.env.RECONNECT_EMAIL_SUBJECT || 'DEI™-World Is My Playground',
+    WD_LEAD_EMAIL_SUBJECT:
+      process.env.WD_LEAD_EMAIL_SUBJECT || 'Website Development - Deals',
     DATA_LEAD_EMAIL_SUBJECT:
       process.env.DATA_LEAD_EMAIL_SUBJECT || 'Data Connectivity Deals',
     SECURITY_LEAD_EMAIL_SUBJECT:
@@ -37,6 +43,8 @@ export default (): any => ({
 
     BRANDING_EMAIL_SUBJECT:
       process.env.BRANDING_EMAIL_SUBJECT || 'DEI™-Graphic Design-Branding',
+    WD_EMAIL_SUBJECT:
+      process.env.WD_EMAIL_SUBJECT || 'DEI™-Website Development',
     SECURITY_SERVICE_CONFIRMATION_EMAIL_SUBJECT:
       process.env.SECURITY_SERVICE_CONFIRMATION_EMAIL_SUBJECT ||
       'DEI™-Security Service',
