@@ -12,7 +12,7 @@ export default (): any => ({
     SECURE_PORT: process.env.SECURE_PORT || 465,
     SECURE: process.env.SECURE || true,
     EMAIL_ID: process.env.EMAIL_ID || 'DoNotReply@xiiiusa.com',
-    EMAIL_PASS: process.env.EMAIL_PASS || 'LJHyy3JmN*ceX_x_pLR',
+    EMAIL_PASS: process.env.EMAIL_PASS || '2MycYAn9R3FsQf@6r8Kqf',
     EMAIL_FROM: process.env.EMAIL_FROM || 'DoNotReply@xiiiusa.com',
     CONFIRMATION_EMAIL_SUBJECT:
       process.env.CONFIRMATION_EMAIL_SUBJECT ||
