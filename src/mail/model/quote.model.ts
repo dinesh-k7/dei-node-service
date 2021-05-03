@@ -84,4 +84,5 @@ export interface IReconnectQuoteModel {
   phone: string;
   beliefs?: string[];
   additional_beliefs?: string[];
+  qualityOfLife?: string;
 }

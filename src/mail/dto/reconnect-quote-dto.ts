@@ -18,6 +18,10 @@ export class ReconnectQuoteDto {
   readonly fromPage?: string;
 
   @ApiProperty()
+  @IsOptional()
+  readonly qualityOfLife?: string;
+
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   readonly phone: string;
