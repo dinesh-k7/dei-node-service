@@ -16,7 +16,7 @@ export default (): any => ({
     EMAIL_FROM: process.env.EMAIL_FROM || 'DoNotReply@xiiiusa.com',
     CONFIRMATION_EMAIL_SUBJECT:
       process.env.CONFIRMATION_EMAIL_SUBJECT ||
-      'Digital Enterprise Initiative™ confirmation',
+      'Digital Enterprise Initiative™ Secure confirmation',
     LEAD_EMAIL_SUBJECT: process.env.LEAD_EMAIL_SUBJECT || 'KLW - Deals',
     RECONNECT_LEAD_EMAIL_SUBJECT:
       process.env.RECONNECT_LEAD_EMAIL_SUBJECT || 'Reconnect - Form Data',
