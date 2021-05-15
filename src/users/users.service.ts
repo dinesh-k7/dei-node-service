@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 
 import { User } from './user.entity';
 import { IUserLogin } from './dto/user-dto';
+import { encrypt, decrypt } from '../util';
 
 @Injectable()
 export class UsersService {
@@ -24,10 +25,24 @@ export class UsersService {
    * @param _id : number
    */
 
-  async getUser(_id: number): Promise<User[]> {
-    return await this.usersRepository.find({
-      where: [{ id: _id }],
-    });
+  async getUser(_id: number): Promise<any> {
+    return this.usersRepository
+      .find({
+        where: [{ id: _id }],
+      })
+      .then(userData => {
+        const [user] = userData;
+        let userDetail = null;
+        if (user) {
+          userDetail = {
+            userId: encrypt(`'${user.id}'`),
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+          };
+        }
+        return userDetail;
+      });
   }
 
   /**

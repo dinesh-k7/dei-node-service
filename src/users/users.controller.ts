@@ -15,6 +15,7 @@ import { Response } from 'express';
 import { UsersService } from './users.service';
 import { UserDto, UserLoginDto } from './dto/user-dto';
 import { User } from './user.entity';
+import { encrypt, decrypt } from '../util';
 
 @Controller('user')
 @ApiTags('Users')
