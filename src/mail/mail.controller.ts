@@ -28,6 +28,7 @@ import { SDWANServiceQuoteDto } from './dto/sdwan-service-quote-dto';
 import { ConsultationServiceQuoteDto } from './dto/consultation-service-quote-dto';
 import { WdQuoteDto } from './dto/wd-quote-dto';
 import { ReconnectQuoteDto } from './dto/reconnect-quote-dto';
+import { ConfirmationEmailDto } from './dto/confirmation-email-dto';
 
 @Controller('mail-service')
 @ApiTags('Mail Service')
@@ -301,6 +302,35 @@ export class MailController {
         response
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .send('Error in Reconnect form data email');
+      });
+  }
+
+  /**
+   * Function to Sign up confirmation mail
+   * @param reconnectFormPayload: ConfirmationEmailDto
+   * @param response: Response
+   */
+  @Post('signup-confirmation')
+  @ApiOperation({ summary: 'Send confirmation email upon successfull signup' })
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
+  public async sendConfirmationMail(
+    @Body() payload: ConfirmationEmailDto,
+    @Res() response: Response,
+  ): Promise<any> {
+    this.mailService
+      .sendConfirmationMail(payload)
+      .then(() => {
+        Logger.log('Sign up Confirmation Email sent successfully');
+        response.status(HttpStatus.NO_CONTENT).send();
+      })
+      .catch(err => {
+        Logger.log(
+          'Error in sending Sign up Confirmation Email',
+          JSON.stringify(err),
+        );
+        response
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .send('Error in sending Sign up Confirmation Email');
       });
   }
 }

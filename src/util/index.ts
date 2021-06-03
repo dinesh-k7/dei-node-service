@@ -13,5 +13,6 @@ export const encrypt = (val): string => {
 export const decrypt = (encrypted): string => {
   let decipher = createDecipheriv('aes-256-cbc', ENC_KEY, IV);
   let decrypted = decipher.update(encrypted, 'base64', 'utf8');
-  return decrypted + decipher.final('utf8');
+  decrypted += decipher.final('utf-8');
+  return decrypted;
 };

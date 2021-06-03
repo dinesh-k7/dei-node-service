@@ -68,6 +68,9 @@ export default (): any => ({
     UCASS_SERVICE_CONFIRMATION_EMAIL_SUBJECT:
       process.env.UCASS_SERVICE_CONFIRMATION_EMAIL_SUBJECT ||
       'DEI™-UCaaS Service',
+    SIGNUP_CONFIRMATION_EMAIL_SUBJECT:
+      process.env.SIGNUP_CONFIRMATION_EMAIL_SUBJECT ||
+      'Digital Enterprise Initiative™ confirmation',
   },
   HUBSPOT_API_KEY:
     process.env.HUBSPOT_API_KEY || '56e2b3ac-6375-47a8-9362-dce12fdf7faa',

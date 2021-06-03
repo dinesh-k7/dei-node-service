@@ -12,6 +12,8 @@ import { HubspotCrmService } from './hubspot-crm/hubspot-crm.service';
 import { HubspotCrmModule } from './hubspot-crm/hubspot-crm.module';
 import { UsersModule } from './users/users.module';
 import configuration from './config/configuration';
+import { join } from 'path';
+import { OrdersModule } from './orders/orders.module';
 
 const {
   EMAIL_HOST,
@@ -41,9 +43,11 @@ const {
       defaults: {
         from: EMAIL_FROM, // outgoing email ID
       },
+
       template: {
-        dir: process.cwd() + '/template/',
+        dir: join(__dirname, 'mail/templates'),
         adapter: new HandlebarsAdapter(),
+
         options: {
           strict: true,
         },
@@ -57,6 +61,7 @@ const {
     HubspotCrmModule,
     HttpModule,
     UsersModule,
+    OrdersModule,
   ],
   controllers: [AppController, HubspotCrmController],
   providers: [AppService, HubspotCrmService],

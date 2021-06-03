@@ -12,6 +12,7 @@ import {
 } from './model/quote.model';
 import { sanitizeInput } from '../shared/utils';
 import { constants } from '../constants';
+import { ConfirmationEmailDto } from './dto/confirmation-email-dto';
 
 @Injectable()
 export class MailService {
@@ -39,6 +40,7 @@ export class MailService {
     const from = this.configService.get<string>(
       'EMAIL_CONFIGURATION.EMAIL_FROM',
     );
+
     const { subject, template } = this.getSubjectTempl(page, quote);
 
     const { email } = quote;
@@ -49,7 +51,7 @@ export class MailService {
       from,
       cc: from,
       subject,
-      template,
+      template: `./${template}`,
       context: {
         ...quote,
       },
@@ -221,5 +223,35 @@ export class MailService {
         break;
     }
     return subject;
+  }
+
+  /**
+   * Function to send mail to users with lead information
+   * @param quote:ConfirmationEmailDto
+   * @param page:string
+   */
+  public sendConfirmationMail(payload: ConfirmationEmailDto): Promise<any> {
+    const from = this.configService.get<string>(
+      'EMAIL_CONFIGURATION.EMAIL_FROM',
+    );
+
+    const template = 'signup-confirmation';
+    const subject = this.configService.get<string>(
+      'EMAIL_CONFIGURATION.SIGNUP_CONFIRMATION_EMAIL_SUBJECT',
+    );
+
+    const { email } = payload;
+    const to = email;
+
+    return this.mailerService.sendMail({
+      to,
+      from,
+      cc: from,
+      subject,
+      template: `./${template}`,
+      context: {
+        ...payload,
+      },
+    });
   }
 }

@@ -7,15 +7,17 @@ import {
   ParseIntPipe,
   Get,
   Res,
+  Logger,
+  HttpCode,
+  NotFoundException,
 } from '@nestjs/common';
 
 import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { UsersService } from './users.service';
-import { UserDto, UserLoginDto } from './dto/user-dto';
+import { IUserLogin, UserDto, UserLoginDto } from './dto/user-dto';
 import { User } from './user.entity';
-import { encrypt, decrypt } from '../util';
 
 @Controller('user')
 @ApiTags('Users')
@@ -83,6 +85,35 @@ export class UsersController {
         response.status(HttpStatus.UNAUTHORIZED).send({
           success: false,
         });
+      },
+    );
+  }
+
+  /**
+   * Function to reset password based on the provided data
+   * @param payload: IUserLogin
+   */
+  @Post('reset-password')
+  @ApiOperation({ summary: 'Reset password' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Ok' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @ApiResponse({ status: HttpStatus.BAD_GATEWAY, description: 'Gateway error' })
+  @ApiBody({ type: UserLoginDto })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @HttpCode(HttpStatus.NOT_FOUND)
+  public async resetPassword(
+    @Body() payload: IUserLogin,
+    @Res() response: Response,
+  ): Promise<any> {
+    return this.userService.resetPassword(payload).then(
+      data => {
+        if (data) {
+          response.status(HttpStatus.NO_CONTENT).send();
+        }
+      },
+      error => {
+        Logger.log('Error in reseting password', JSON.stringify(error));
+        throw new NotFoundException('Entered email does not exist');
       },
     );
   }

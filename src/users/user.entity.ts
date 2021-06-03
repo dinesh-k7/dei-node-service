@@ -1,11 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 import {
-  IsString,
-  IsNotEmpty,
-  IsBoolean,
-  IsEmail,
-  IsOptional,
-} from 'class-validator';
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  OneToMany,
+} from 'typeorm';
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+
+import { Orders } from '../orders/orders.entity';
 
 @Entity()
 export class User extends BaseEntity {
